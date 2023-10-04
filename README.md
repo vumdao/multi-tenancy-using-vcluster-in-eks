@@ -15,6 +15,7 @@
 - [Abstract](#abstract)
 - [Table Of Contents](#table-of-contents)
 - [🚀 **vcluster overview** ](#-vcluster-overview-)
+- [🚀 **Solution overview** ](#-Solution-overview-)
 - [🚀 **Bootstrap EKS cluster using CDK EKS Blueprints** ](#-bootstrap-eks-cluster-using-cdk-eks-blueprints-)
 - [🚀 **Create vcluster** ](#-create-vcluster-)
 - [🚀 **Expose vcluster using Network Laoad Balancer** ](#-expose-vcluster-using-network-laoad-balancer-)
@@ -27,6 +28,8 @@
 
 <img src=images/vcluster-architecture.png width=1100>
 
+## 🚀 **Solution overview** <a name="Solution-overview"></a>
+<img src=images/architect.png width=900>
 
 ## 🚀 **Bootstrap EKS cluster using CDK EKS Blueprints** <a name="Bootstrap-EKS-cluster-using-CDK-EKS-Blueprints"></a>
 - The bootstrap provisions EKS cluster with required AddOns using [CDK EKS blueprints](https://github.com/aws-quickstart/cdk-eks-blueprints/tree/main)

@@ -1,0 +1,21 @@
+# Service to expose vcluser using NLB
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: stage=development,Name=app2-nlb,environment=dev
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+    service.beta.kubernetes.io/aws-load-balancer-target-node-labels: karpenter.sh/provisioner-name=default
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+  name: app2-lb
+  namespace: app2
+spec:
+  loadBalancerClass: service.k8s.aws/nlb
+  ports:
+    - port: 443
+      targetPort: 8443
+      protocol: TCP
+  selector:
+    app: vcluster
+    release: app2
+  type: LoadBalancer

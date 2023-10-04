@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/actions.echo: '{"type":"forward","forwardConfig":{"targetGroups":[{"serviceName":"echo","servicePort":"8080","weight":100}]}}'
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-southeast-1:123456789012:certificate/c64bb471-4f1a-4c27-ba3f-9e987de7a1ad
+    alb.ingress.kubernetes.io/conditions.echo: '[{"field":"path-pattern","pathPatternConfig":{"values":["/echo/*"]}}]'
+    alb.ingress.kubernetes.io/group.name: app2
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/target-node-labels: karpenter.sh/provisioner-name=default
+  labels:
+    dev: echo
+  name: echo
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: echo
+                port:
+                  name: use-annotation
+            pathType: ImplementationSpecific

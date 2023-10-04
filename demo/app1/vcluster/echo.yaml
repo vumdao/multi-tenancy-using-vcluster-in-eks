@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo
+  labels:
+    app: echo
+spec:
+  selector:
+    matchLabels:
+      app: echo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: echo
+    spec:
+      containers:
+        - name: echo
+          image: hashicorp/http-echo
+          args: ['--listen', ':5678', '--text', 'Welcome to vcluster app1 !']
+          ports:
+            - containerPort: 5678
+              name: echo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo
+  labels:
+    app: echo
+spec:
+  ports:
+    - port: 8080
+      targetPort: echo
+  selector:
+    app: echo
+  type: NodePort
